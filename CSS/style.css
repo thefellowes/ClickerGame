@@ -17,12 +17,12 @@ body {
 #middleMenu{
     width:50%;
     float:left;
-    display: none
+    display: none;
 }
 #rightMenu{
     width: 20%;
     float:left;
-    display: none
+    display: none;
 }
 #resources, #actions, #log { 
     margin-bottom: 20px;     
