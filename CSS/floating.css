@@ -1,0 +1,1 @@
+.floating-text { position: absolute; font-size: 1rem; font-weight: bold; color: #4caf50; pointer-events: none; user-select: none; will-change: top, left, opacity; }

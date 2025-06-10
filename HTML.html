@@ -1,0 +1,115 @@
+<!-- File: HTML.HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Incremental Camp Prototype</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/floating.css">
+  <link rel="stylesheet" href="CSS/carousel.css">
+
+  <link rel="icon" href="Assets/Sprites/favicon.png" type="image/x-icon">
+</head>
+<body>
+  <h1>Camp Incremental Prototype</h1>
+
+  <!-- Character selection -->
+<div class="carousel-container-species" id="speciesSelection">
+  <div class="carousel-row">
+    <button id="prevBtnSpecies" class="carousel-btn-species">‹</button>
+    <div class="carousel">
+      <img id="carouselImageSpecies" src="Assets/Sprites/Default.png" alt="Default">
+    </div>
+    <button id="nextBtnSpecies" class="carousel-btn-species">›</button>
+  </div>
+
+  <h2 id="speciesName">Default</h2>
+  <p class="species-stat" id="strength"></p>
+  <p class="species-stat" id="awareness"></p>
+  <p class="species-stat" id="health"></p>
+  <p class="species-stat" id="charisma"></p>
+  <p class="species-stat" id="intelligence"></p>
+  <p class="species-stat" id="agility"></p>
+  <p class="species-stat" id="luck"></p>
+  <button id="selectBtnSpecies" class="select-btn-species">Select Species</button>
+</div>
+
+<div class="carousel-container-faction" id="factionSelection">
+  <div class="carousel-row">
+    <button id="prevBtnFactions" class="carousel-btn-faction">‹</button>
+    <div class="carousel">
+      <img id="carouselImageFaction" src="Assets/Sprites/Default.png" alt="Default">
+    </div>
+    <button id="nextBtnFactions" class="carousel-btn-faction">›</button>
+  </div>
+
+  <h2 id="factionName">Default</h2>
+  <button id="selectBtnFaction" class="select-btn-faction">Select Faction</button>
+</div>
+
+  <!-- Main game -->
+  <div class="menu" id="leftMenu">
+    <div id="resources">
+        <h3>Resources</h3>
+        <p>Wood: <span id="wood">0</span></p>
+        <p>Stone: <span id="stone">0</span></p>
+        <p>Food: <span id="food">0</span></p>
+        <p>Water: <span id="water">0</span></p>
+        <hr>
+        <p>Gold: <span id="gold">0</span></p>
+    </div>
+    <div id="inventory">
+        <h3>Inventory</h3>
+        <p>Wooden Club: <span id="woodenClub">0</span></p>
+        <p>Stone Axe: <span id="stoneAxe">0</span></p>
+        <p>Armor: <span id="armor">0</span></p>
+        <p>Potion: <span id="potion">0</span></p>
+    </div>
+    <div id="stats">
+        <h3>Stats</h3>
+        <img src="Assets/Sprites/Default.png" alt="Character" id="characterImage">
+        <p>Health: <span id="health">0</span></p>
+        <p>Strength: <span id="strength">0</span></p>
+        <p>Awareness: <span id="awareness">0</span></p>
+        <p>Charisma: <span id="charisma">0</span></p>
+        <p>Intelligence: <span id="intelligence">0</span></p>
+        <p>Agility: <span id="agility">0</span></p>
+        <p>Luck: <span id="luck">0</span></p>
+    </div>
+  </div>
+  <div class="menu" id="middleMenu">
+    <div id="actions">
+    <button class="btn gatherButton" id="gatherWood">Chop Wood</button>
+    <button class="btn gatherButton" id="gatherStone">Mine Stone</button>
+    <button class="btn" id="Craft">Craft</button>
+    <!-- overlay + menu -->
+    <div class="menu-overlay" id="craftMenu">
+        <div class="menu-content">
+        <h4>Crafting Options</h4>
+        <ul>
+            <li id="craftClub">Wooden club</li>
+            <li id="craftAxe">Stone axe</li>
+            <li id="craftArmor">Armor</li>
+            <li id="craftPotion">Potion</li>
+        </ul>
+        </div>
+    </div>
+    <button class="btn" id="startFight">Tutorial Fight</button>
+    </div>
+  </div>
+  <div class="menu" id="rightMenu">
+    <div id="log">
+        <h3>Log</h3>
+    </div>
+  </div>
+  <!-- External JS -->
+  <script src="JS/log.js"></script>
+  <script type="module" src="JS/carousel.js"></script>
+  <script src="JS/item.js"></script>
+  <script src="JS/floating.js"></script>
+  <script src="JS/craft.js"></script>
+  <script src="JS/main.js"></script>
+</body>
+</html>
