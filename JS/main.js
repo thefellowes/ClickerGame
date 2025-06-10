@@ -6,7 +6,6 @@ function updateUI() {
   document.getElementById('food').innerText = state.food;
   document.getElementById('water').innerText = state.water;
   document.getElementById('gold').innerText = state.gold;
-  const status = document.getElementById('status');
 }
 const craftBtn = document.getElementById('Craft');
 const overlay = document.getElementById('craftMenu');
