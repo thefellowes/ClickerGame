@@ -14,13 +14,14 @@ let currentIndex = 0;
 
 
 
-const strengthEl = document.getElementById('strength');
-const awarenessEl = document.getElementById('awareness');
-const healthEl = document.getElementById('health');
-const charismaEl = document.getElementById('charisma');
-const intelligenceEl = document.getElementById('intelligence');
-const agilityEl = document.getElementById('agility');
-const luckEl = document.getElementById('luck');
+// Elements displaying species statistics in the selector
+const speciesStrengthEl = document.getElementById('species-strength');
+const speciesAwarenessEl = document.getElementById('species-awareness');
+const speciesHealthEl = document.getElementById('species-health');
+const speciesCharismaEl = document.getElementById('species-charisma');
+const speciesIntelligenceEl = document.getElementById('species-intelligence');
+const speciesAgilityEl = document.getElementById('species-agility');
+const speciesLuckEl = document.getElementById('species-luck');
 
 const leftMenu = document.getElementById('leftMenu');
 const middleMenu = document.getElementById('middleMenu');
@@ -63,13 +64,13 @@ function updateCarouselSpecies() {
   imgElSpecies.src = `Assets/Sprites/${name}.png`;
   imgElSpecies.alt = name;
   nameEl.textContent = name;
-  strengthEl.textContent = `Strength: ${speciesMap[name].strength}`;
-  awarenessEl.textContent = `Awareness: ${speciesMap[name].awareness}`;
-  healthEl.textContent = `Health: ${speciesMap[name].health}`;
-  charismaEl.textContent = `Charisma: ${speciesMap[name].charisma}`;
-  intelligenceEl.textContent = `Intelligence: ${speciesMap[name].intelligence}`;
-  agilityEl.textContent = `Agility: ${speciesMap[name].agility}`;
-  luckEl.textContent = `Luck: ${speciesMap[name].luck}`;
+  speciesStrengthEl.textContent = `Strength: ${speciesMap[name].strength}`;
+  speciesAwarenessEl.textContent = `Awareness: ${speciesMap[name].awareness}`;
+  speciesHealthEl.textContent = `Health: ${speciesMap[name].health}`;
+  speciesCharismaEl.textContent = `Charisma: ${speciesMap[name].charisma}`;
+  speciesIntelligenceEl.textContent = `Intelligence: ${speciesMap[name].intelligence}`;
+  speciesAgilityEl.textContent = `Agility: ${speciesMap[name].agility}`;
+  speciesLuckEl.textContent = `Luck: ${speciesMap[name].luck}`;
 }
 
 function updateCarouselFaction() {
