@@ -111,37 +111,42 @@ def fight_sequence():
         mode = MODE_IDLE
 
 # Main loop
-clock = pygame.time.Clock()
-running = True
-while running:
-    screen.fill(WHITE)
-    # Draw trees
-    for tree in trees:
-        screen.blit(tree.image, tree.rect)
-    # Event handling
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if mode == MODE_IDLE:
-                if event.key == pygame.K_w:
-                    state['wood'] += 1
-                elif event.key == pygame.K_s:
-                    state['stone'] += 1
-                elif event.key == pygame.K_c and state['wood'] >= 10:
-                    state['wood'] -= 10
-                    state['weapon'] = {'name': 'Wooden Club', 'damage': 5}
-                elif event.key == pygame.K_f and state['weapon']:
-                    start_fight()
-            elif mode == MODE_FIGHT and event.key == pygame.K_SPACE:
-                fight_sequence()
-    # Draw UI
-    if mode == MODE_IDLE:
-        draw_resources()
-        draw_buttons()
-    else:
-        draw_bars()
-    pygame.display.flip()
-    clock.tick(30)
-pygame.quit()
-sys.exit()
+def main() -> None:
+    clock = pygame.time.Clock()
+    running = True
+    while running:
+        screen.fill(WHITE)
+        # Draw trees
+        for tree in trees:
+            screen.blit(tree.image, tree.rect)
+        # Event handling
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if mode == MODE_IDLE:
+                    if event.key == pygame.K_w:
+                        state['wood'] += 1
+                    elif event.key == pygame.K_s:
+                        state['stone'] += 1
+                    elif event.key == pygame.K_c and state['wood'] >= 10:
+                        state['wood'] -= 10
+                        state['weapon'] = {'name': 'Wooden Club', 'damage': 5}
+                    elif event.key == pygame.K_f and state['weapon']:
+                        start_fight()
+                elif mode == MODE_FIGHT and event.key == pygame.K_SPACE:
+                    fight_sequence()
+        # Draw UI
+        if mode == MODE_IDLE:
+            draw_resources()
+            draw_buttons()
+        else:
+            draw_bars()
+        pygame.display.flip()
+        clock.tick(30)
+    pygame.quit()
+    sys.exit()
+
+
+if __name__ == "__main__":
+    main()
