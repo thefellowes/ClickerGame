@@ -101,7 +101,7 @@ nextBtnFactions.addEventListener('click', () => {
 selectBtnSpecies.addEventListener('click', () => {
   const selectedName = speciesList[currentIndex];
   const selectedSpecies = speciesMap[selectedName];
-  player.species = selectedSpecies;
+  player.updateSpecies(selectedSpecies);
   console.log('Player species set to:', player.species);
   carouselSpecies.style.display = 'none';
   carouselFaction.style.display = 'flex';

@@ -13,12 +13,12 @@ const overlay = document.getElementById('craftMenu');
 // Resources
 document.getElementById('gatherWood').onclick = () => {
   state.wood++; 
-  addLog("Gathered wood!");
+  addLog("Chopped wood!");
   updateUI();
 };
 document.getElementById('gatherStone').onclick = () => {
   state.stone++; 
-  addLog("Gathered stone!");
+  addLog("Mined stone!");
   updateUI();
 };
 

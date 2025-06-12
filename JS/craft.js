@@ -3,7 +3,6 @@ document.getElementById('craftClub').onclick = () => {
   if(state.wood>=10){ 
     state.wood-=10; 
     state.weapon={name:'Wooden Club',damage:5}; 
-    addLog('Crafted and equipped Wooden Club!'); 
     updateUI(); 
   } else {
     addLog('Need 10 wood.');

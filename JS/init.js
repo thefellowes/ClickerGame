@@ -10,15 +10,17 @@ const menuLuck = document.getElementById('luck');
 function initialiseGame(Player) {
     // Set initial player stats
     playerImage.src = `Assets/Sprites/${Player.species.name.toLowerCase()}.png`;
-    menuHealth.textContent = `Health: ${Player.health}`;
-    menuStrength.textContent = `Strength: ${Player.strength}`;
-    menuAwareness.textContent = `Awareness: ${Player.awareness}`;
-    menuCharisma.textContent = `Charisma: ${Player.charisma}`;
-    menuIntelligence.textContent = `Intelligence: ${Player.intelligence}`;
-    menuAgility.textContent = `Agility: ${Player.agility}`;
-    menuLuck.textContent = `Luck: ${Player.luck}`;
+    menuHealth.textContent = `${Player.health}`;
+    menuStrength.textContent = `${Player.strength}`;
+    menuAwareness.textContent = `${Player.awareness}`;
+    menuCharisma.textContent = `${Player.charisma}`;
+    menuIntelligence.textContent = `${Player.intelligence}`;
+    menuAgility.textContent = `${Player.agility}`;
+    menuLuck.textContent = `${Player.luck}`;
     
     // Initialize other game elements as needed
     updateUI();
     addLog('Game initialized. Good luck!');
 }
+
+export { initialiseGame };
