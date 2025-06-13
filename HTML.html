@@ -64,6 +64,7 @@
         <h3>Inventory</h3>
         <img src="Assets/Sprites/BackpackNoBG.png" alt="Backpack" id="backpackImage">
     </div>
+    <div id="tooltip" class="tooltip" style="display: none;"></div>
     <div id="stats">
         <h3>Stats</h3>
         <img src="Assets/Sprites/Default.png" alt="Character" id="characterImage">
@@ -93,14 +94,22 @@
         </ul>
         </div>
     </div>
+
     <div class="inventory-overlay" id="inventoryMenu">
-        <div class="menu-content">
-        <h4>Inventory</h4>
-        <ul id="inventoryList">
-            <div class="inventory-grid" id="inventoryGrid"></div>
-        </ul>
+      <div class="menu-content inventory-container">
+        <!-- Equipment section -->
+        <div class="equipment-section">
+          <h4>Equipment</h4>
+          <div class="equipment-grid" id="equipmentGrid"></div>
         </div>
-    </div> 
+        <!-- Inventory section -->
+        <div class="inventory-section">
+          <h4>Inventory</h4>
+          <div class="inventory-grid" id="inventoryGrid"></div>
+        </div>
+      </div>
+    </div>
+
     <button class="btn" id="startFight">Tutorial Fight</button>
     </div>
   </div>
@@ -112,8 +121,8 @@
   <!-- External JS -->
   <script src="JS/log.js"></script>
   <script type="module" src="JS/carousel.js"></script>
-  <script src="JS/inventory.js"></script>
   <script src="JS/item.js"></script>
+  <script src="JS/inventory.js"></script>
   <script src="JS/floating.js"></script>
   <script src="JS/craft.js"></script>
   <script src="JS/main.js"></script>
