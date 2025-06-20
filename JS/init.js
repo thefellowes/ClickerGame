@@ -1,3 +1,6 @@
+import { updateUI } from './main.js';
+import { addLog } from './log.js';
+
 const playerImage = document.getElementById('characterImage');
 const menuHealth = document.getElementById('health');
 const menuStrength = document.getElementById('strength');

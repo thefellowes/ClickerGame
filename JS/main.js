@@ -1,12 +1,59 @@
+// JS/main.js
 // State
-const state = { wood: 0, stone: 0, food: 0, water: 0, gold: 0, weapon: null };
-function updateUI() {
-  document.getElementById('wood').innerText = state.wood;
-  document.getElementById('stone').innerText = state.stone;
-  document.getElementById('food').innerText = state.food;
-  document.getElementById('water').innerText = state.water;
-  document.getElementById('gold').innerText = state.gold;
+export const state = { wood: 50, stone: 50, food: 50, water: 50, gold: 50, weapon: null };
+
+export function updateUI() {
+
+  // Resource display
+document.getElementById('wood').innerText = Math.floor(state.wood);
+document.getElementById('stone').innerText = Math.floor(state.stone);
+document.getElementById('food').innerText = Math.floor(state.food);
+document.getElementById('water').innerText = Math.floor(state.water);
+document.getElementById('gold').innerText = Math.floor(state.gold);
+document.getElementById('wood').innerHTML  = `<span class="green"><b>${Math.floor(state.wood)}</b></span>`;
+document.getElementById('stone').innerHTML = `<span class="gray"><b>${Math.floor(state.stone)}</span>`;
+document.getElementById('food').innerHTML  = `<span class="red"><b>${Math.floor(state.food)}</b></span>`;
+document.getElementById('water').innerHTML = `<span class="blue"><b>${Math.floor(state.water)}</b></span>`;
+document.getElementById('gold').innerHTML  = `<span class="yellow"><b>${Math.floor(state.gold)}</b></span>`;
+
+  // Player stat display
+  try {
+    if (player !== '') {
+      const formatStat = (base, mod) => {
+        if (mod === 0) return `${base}`;
+        const sign = mod > 0 ? '+' : '−';
+        const color = mod > 0 ? 'green' : 'red';
+        return `${base} <span style="color:${color}; font-size: 0.9em;">${sign}${Math.abs(mod)}</span>`;
+      };
+      document.getElementById('health').innerHTML       = formatStat(player.baseStats.health, player.modifiers.health);
+      document.getElementById('strength').innerHTML     = formatStat(player.baseStats.strength, player.modifiers.strength);
+      document.getElementById('awareness').innerHTML    = formatStat(player.baseStats.awareness, player.modifiers.awareness);
+      document.getElementById('charisma').innerHTML     = formatStat(player.baseStats.charisma, player.modifiers.charisma);
+      document.getElementById('intelligence').innerHTML = formatStat(player.baseStats.intelligence, player.modifiers.intelligence);
+      document.getElementById('agility').innerHTML      = formatStat(player.baseStats.agility, player.modifiers.agility);
+      document.getElementById('luck').innerHTML         = formatStat(player.baseStats.luck, player.modifiers.luck);
+    } else {
+      console.warn('Player is not yet initialized');
+    }
+  } catch (err) {
+    console.error('Failed to update player stats UI:', err);
+  }
 }
+
+import './log.js';
+import './carousel.js';
+import './item.js';
+import './inventory.js';
+import './floating.js';
+import './craft.js';
+import { player } from './character.js';
+import { upgrades, tickUpgrades } from './upgrades.js';
+import { addLog } from './log.js';
+import {  } from './upgrades.js';
+
+// Game clock
+setInterval(tickUpgrades, 1000); // every second
+
 const craftBtn = document.getElementById('Craft');
 const overlay = document.getElementById('craftMenu');
 
@@ -33,50 +80,9 @@ overlay.addEventListener('click', (e) => {
     overlay.style.display = 'none';
   }
 });
-
-// Fight
-document.getElementById('startFight').onclick = () => { 
-  if(!state.weapon){
-    addLog('You need a weapon to fight!');
-    return;} 
-  startFight(); 
-};
-function startFight(){ 
-  const enemy={hp:20,maxHp:20,name:'Bandit'}; 
-  let playerHp=30;
-  const fightContainer=document.createElement('div'); 
-  fightContainer.id='fight';
-  fightContainer.innerHTML=`<h3>Fighting ${enemy.name}</h3><div id="enemy"><p>${enemy.name} HP: ${enemy.hp}/${enemy.maxHp}</p><div class="bar"><div id="enemyBar" class="bar-inner"></div></div></div><div id="player"><p>Player HP: ${playerHp}/30</p><div class="bar"><div id="playerBar" class="bar-inner"></div></div></div><button class="btn" id="attackBtn">Attack</button>`;
-  document.body.appendChild(fightContainer);
-  document.getElementById('attackBtn').onclick = ()=>{
-    enemy.hp-=state.weapon.damage; 
-    enemy.hp=Math.max(enemy.hp,0); 
-    updateBars();
-    if(enemy.hp===0){
-      endFight(true);
-      return;
-    } 
-    playerHp-=3; 
-    playerHp=Math.max(playerHp,0); 
-    updateBars(); 
-    if(playerHp===0){
-      endFight(false);
-    }
-  };
-  function updateBars(){ 
-    document.querySelector('#enemy p').innerText=`${enemy.name} HP: ${enemy.hp}/${enemy.maxHp}`; 
-    document.getElementById('enemyBar').style.width=(enemy.hp/enemy.maxHp*100)+'%'; 
-    document.querySelector('#player p').innerText=`Player HP: ${playerHp}/30`; 
-    document.getElementById('playerBar').style.width=(playerHp/30*100)+'%'; 
+// Close menu on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    overlay.style.display = 'none';
   }
-  function endFight(v){ 
-    document.getElementById('fight').remove(); 
-    if(v){ 
-      const loot=Math.floor(Math.random()*5)+1; 
-      state.gold+=loot; 
-      addLog(`You defeated the ${enemy.name} and looted ${loot} gold!`);
-      updateUI(); 
-    } else addLog('You were defeated!'); 
-  }
-}
-updateUI();
+});

@@ -87,14 +87,13 @@
         <div class="menu-content">
         <h4>Crafting Options</h4>
         <ul>
-            <li id="craftClub">Wooden club</li>
-            <li id="craftAxe">Stone axe</li>
-            <li id="craftArmor">Armor</li>
+            <li id="craftWoodenClub">Wooden club</li>
+            <li id="craftStoneAxe">Stone axe</li>
+            <li id="craftWoodenHelmet">Wooden helmet</li>
             <li id="craftPotion">Potion</li>
         </ul>
         </div>
     </div>
-
     <div class="inventory-overlay" id="inventoryMenu">
       <div class="menu-content inventory-container">
         <!-- Equipment section -->
@@ -109,22 +108,67 @@
         </div>
       </div>
     </div>
-
     <button class="btn" id="startFight">Tutorial Fight</button>
     </div>
+
+    <div id="upgradesContainer">
+      <h4>Upgrades</h4>
+      <div class="upgrade-row">
+        <div class="upgrade-buttons">
+          <button class="btn upgradeButton" id="hireWoodcutter">Hire Woodcutter</button>
+          <button class="btn upgradeButton" id="upgradeWoodcutter">
+            Upgrade Woodcutter <span id="woodcutterLevel">(Lv. 0)</span> – Cost: <span id="woodcutterCost">1</span> each
+          </button>
+        </div>
+        <div class="worker-image-slot" id="woodcutterSlot"></div>
+      </div>
+      <div class="upgrade-row">
+        <div class="upgrade-buttons">
+          <button class="btn upgradeButton" id="hireMiner">Hire Miner</button>
+          <button class="btn upgradeButton" id="upgradeMiner">
+            Upgrade Miner <span id="minerLevel">(Lv. 0)</span> – Cost: <span id="minerCost">1</span> each
+          </button>
+        </div>
+        <div class="worker-image-slot" id="minerSlot"></div>
+      </div>
+      <div class="upgrade-row">
+        <div class="upgrade-buttons">
+          <button class="btn upgradeButton" id="hireFarmer">Hire Farmer</button>
+          <button class="btn upgradeButton" id="upgradeFarmer">
+            Upgrade Farmer <span id="farmerLevel">(Lv. 0)</span> – Cost: <span id="farmerCost">1</span> each
+          </button>
+        </div>
+        <div class="worker-image-slot" id="farmerSlot"></div>
+      </div>
+    </div>
+
+
   </div>
+  <div class="menu" id="middleMenuFight">
+    <div id="fightContainer">
+      <h3>Fight</h3>
+      <div id="fightLog"></div>
+      <button class="btn" id="attackButton">Attack</button>
+      <button class="btn" id="itemButton">Use Item</button>
+      <button class="btn" id="fleeButton">Flee</button>
+    </div>
+  </div>
+
+
   <div class="menu" id="rightMenu">
     <div id="log">
         <h3>Log</h3>
     </div>
   </div>
   <!-- External JS -->
-  <script src="JS/log.js"></script>
+  <script type="module" src="JS/log.js"></script>
+  <script type="module" src="JS/main.js"></script>
   <script type="module" src="JS/carousel.js"></script>
-  <script src="JS/item.js"></script>
-  <script src="JS/inventory.js"></script>
-  <script src="JS/floating.js"></script>
-  <script src="JS/craft.js"></script>
-  <script src="JS/main.js"></script>
+  <script type="module" src="JS/item.js"></script>
+  <script type="module" src="JS/inventory.js"></script>
+  <script type="module" src="JS/floating.js"></script>
+  <script type="module" src="JS/craft.js"></script>
+  <script type="module" src="JS/upgrades.js"></script>
+  <script type="module" src="JS/fight.js"></script>
 </body>
 </html>

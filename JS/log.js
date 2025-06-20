@@ -25,3 +25,5 @@ const MAX_AGE = 19;            // After this many increments, we'll remove the e
       const header = log.querySelector('h3');
       log.insertBefore(p, header.nextSibling);
     };
+
+    export { addLog };
