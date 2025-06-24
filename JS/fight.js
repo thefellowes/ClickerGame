@@ -4,6 +4,10 @@ import { addLog } from './log.js';
 import { updateUI } from './main.js';
 import { Human, Insectoid, Feline, Robotic, Avian, Reptilian } from './species.js';
 import { Bandits, Merchants, Explorers, Loyalists } from './faction.js';
+import { inventory } from './inventory.js';
+import { state } from './main.js';
+import items from './item.js';
+import { rollLoot } from './loot.js';
 
 document.getElementById('startFight').onclick = () => {
   const enemy = createRandomEnemy();
@@ -30,54 +34,52 @@ function createRandomEnemy() {
 
 function startFight(player, enemy) {
   const middleMenu = document.getElementById('middleMenu');
-  const fightMenu = document.getElementById('middleMenuFight');
-  if (middleMenu) {
-    middleMenu.style.display = 'none';
-  }
+  if (middleMenu) middleMenu.style.display = 'none';
 
   const existingFightUI = document.getElementById('middleMenuFight');
   if (existingFightUI) existingFightUI.remove();
 
   const fightUI = document.createElement('div');
   fightUI.id = 'middleMenuFight';
-  fightUI.className = 'fight-holder';
+  fightUI.className = 'menu fight-holder';
   fightUI.style.display = 'block';
- fightUI.innerHTML = `
-  <div class="fight-top">
-    <div class="hp-bar-wrap left"><div id="enemyHpBar" class="hp-bar-inner"></div></div>
-    <img src="Assets/Sprites/${enemy.species.name}.png" alt="Enemy" class="fight-avatar right" />
-  </div>
-  <div class="enemy-stats">
-    <span id="enemyStatStr">STR: ${enemy.baseStats.strength}</span>
-    <span id="enemyStatAwa">AWA: ${enemy.baseStats.awareness}</span>
-    <span id="enemyStatCha">CHA: ${enemy.baseStats.charisma}</span>
-    <span id="enemyStatInt">INT: ${enemy.baseStats.intelligence}</span>
-    <span id="enemyStatAgi">AGI: ${enemy.baseStats.agility}</span>
-  </div>
-  <p id="enemyName" class="hp-label top-label">${enemy.name}</p>
 
+  fightUI.innerHTML = `
+    <div class="fight-top">
+      <div class="hp-bar-wrap left"><div id="enemyHpBar" class="hp-bar-inner"></div></div>
+      <img src="Assets/Sprites/${enemy.species.name}.png" alt="Enemy" class="fight-avatar right" />
+    </div>
+    <div class="enemy-stats">
+      <span>STR: ${enemy.strength}</span>
+      <span>AWA: ${enemy.awareness}</span>
+      <span>CHA: ${enemy.charisma}</span>
+      <span>INT: ${enemy.intelligence}</span>
+      <span>AGI: ${enemy.agility}</span>
+    </div>
+    <p class="hp-label top-label">${enemy.name}</p>
 
-  <div class="vs-separator">VS</div>
+    <div class="vs-separator">VS</div>
 
-  <div class="fight-bottom">
-    <img src="Assets/Sprites/${player.species.name}.png" alt="Player" class="fight-avatar left" />
-    <div class="hp-bar-wrap right"><div id="playerHpBar" class="hp-bar-inner"></div></div>
-  </div>
-  <div class="player-stats">
-    <span id="playerStatStr">STR: ${player.baseStats.strength}</span>
-    <span id="playerStatAwa">AWA: ${player.baseStats.awareness}</span>
-    <span id="playerStatCha">CHA: ${player.baseStats.charisma}</span>
-    <span id="playerStatInt">INT: ${player.baseStats.intelligence}</span>
-    <span id="playerStatAgi">AGI: ${player.baseStats.agility}</span>
-  </div>
-  <p id="playerName" class="hp-label bottom-label">${player.name || 'You'}</p>
+    <div class="fight-bottom">
+      <img src="Assets/Sprites/${player.species.name}.png" alt="Player" class="fight-avatar left" />
+      <div class="hp-bar-wrap right"><div id="playerHpBar" class="hp-bar-inner"></div></div>
+    </div>
+    <div class="player-stats">
+      <span>STR: ${player.strength}</span>
+      <span>AWA: ${player.awareness}</span>
+      <span>CHA: ${player.charisma}</span>
+      <span>INT: ${player.intelligence}</span>
+      <span>AGI: ${player.agility}</span>
+    </div>
+    <p class="hp-label bottom-label">${player.name || 'You'}</p>
 
-  <button id="attackBtn" class="btn">Attack</button>
-  <button id="itemBtn" class="btn">Use Item</button>
-  <button id="fleeBtn" class="btn">Flee</button>
-`;
+    <button id="attackBtn" class="btn">Attack</button>
+    <button id="itemBtn" class="btn">Use Item</button>
+    <button id="fleeBtn" class="btn">Flee</button>
+  `;
 
-  document.getElementById('middleMenu').parentNode.appendChild(fightUI);
+  const parent = document.getElementById('middleMenu');
+  parent.parentNode.insertBefore(fightUI, document.getElementById('rightMenu'));
 
   let enemyHp = enemy.baseStats.health;
   let playerHp = player.baseStats.health;
@@ -87,10 +89,6 @@ function startFight(player, enemy) {
   const updateBars = () => {
     document.getElementById('enemyHpBar').style.width = (enemyHp / enemyMaxHp) * 100 + '%';
     document.getElementById('playerHpBar').style.width = (playerHp / playerMaxHp) * 100 + '%';
-
-   // Update text-based stats
-    document.getElementById('enemyStatHp').textContent = `HP: ${enemyHp}`;
-    document.getElementById('playerStatHp').textContent = `HP: ${playerHp}`;
   };
 
   updateBars();
@@ -130,9 +128,11 @@ function startFight(player, enemy) {
     if (enemyHp === 0 && playerHp === 0) {
       addLog("It's a draw!");
     } else if (enemyHp === 0) {
-      addLog(`You defeated ${enemy.name}!`);
+      addLog(`You defeated the ${enemy.species.name}!`);
+      enemyDefeated(enemy);
     } else {
       addLog("You were defeated...");
+      //TODO handle player defeat (e.g., respawn, lose items)
     }
 
     setTimeout(() => closeFight(), 2000);
@@ -147,4 +147,14 @@ function startFight(player, enemy) {
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function enemyDefeated(enemy) {
+  const lootRoll = randomInt(0, 100);
+  if (lootRoll < 20) {
+    addLog("You search for loot but find nothing.");
+  } else {
+    const loot = rollLoot(enemy);
+    if (loot) addLog(`You found: ${loot}`);
+  }
 }

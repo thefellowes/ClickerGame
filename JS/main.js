@@ -2,6 +2,17 @@
 // State
 export const state = { wood: 50, stone: 50, food: 50, water: 50, gold: 50, weapon: null };
 
+import './log.js';
+import './carousel.js';
+import './item.js';
+import './inventory.js';
+import './floating.js';
+import './craft.js';
+import { player } from './character.js';
+import { upgrades, tickUpgrades } from './upgrades.js';
+import { addLog } from './log.js';
+import {  } from './upgrades.js';
+
 export function updateUI() {
 
   // Resource display
@@ -39,17 +50,6 @@ document.getElementById('gold').innerHTML  = `<span class="yellow"><b>${Math.flo
     console.error('Failed to update player stats UI:', err);
   }
 }
-
-import './log.js';
-import './carousel.js';
-import './item.js';
-import './inventory.js';
-import './floating.js';
-import './craft.js';
-import { player } from './character.js';
-import { upgrades, tickUpgrades } from './upgrades.js';
-import { addLog } from './log.js';
-import {  } from './upgrades.js';
 
 // Game clock
 setInterval(tickUpgrades, 1000); // every second

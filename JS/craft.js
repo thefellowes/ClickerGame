@@ -3,6 +3,7 @@ import items from "./item.js";
 import { state } from "./main.js";
 import { populateInventory } from "./inventory.js";
 import { inventory } from './inventory.js';
+import { addLog } from "./log.js";
 
 function Craft(item) {
   if (state.wood < item.wood || state.stone < item.stone) {
