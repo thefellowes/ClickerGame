@@ -1,11 +1,27 @@
 //Inventory.js
 import { player } from './character.js';
-import { updateUI } from './main.js';
+import { updateUI, state } from './main.js';
 import { updateStats } from './character.js';
 
 const inventoryButton = document.getElementById('backpackImage');
 const inventoryMenu = document.getElementById('inventoryMenu');
 const tooltip = document.getElementById('tooltip');
+const inventoryOverlay   = document.getElementById('inventoryMenu');
+const inventoryCard      = inventoryOverlay.querySelector('.menu-content');
+
+const invCloseBtn = document.createElement('button');
+invCloseBtn.className = 'close-btn';
+invCloseBtn.textContent = '✕';     // nicer glyph, but keep plain "X" if you prefer
+invCloseBtn.onclick = () => inventoryOverlay.style.display = 'none';
+inventoryCard.appendChild(invCloseBtn);
+
+inventoryButton.addEventListener('click', () =>{
+  inventoryOverlay.style.display = 'flex';   // same as farming overlay
+});
+
+inventoryOverlay.addEventListener('click', (e)=>{
+  if(e.target === inventoryOverlay) inventoryOverlay.style.display = 'none';
+});
 
 inventoryButton.addEventListener('click', () => {
   inventoryMenu.style.display = inventoryMenu.style.display === 'block' ? 'none' : 'block';
@@ -215,6 +231,41 @@ export function populateInventory() {
     inventoryGrid.appendChild(slot);
   }
 }
+
+function parseCoinAmount(name) {
+  const match = name.match(/coins\s*x\s*(\d+)/i); // e.g. "Coins x25"
+  return match ? parseInt(match[1], 10) : 0;
+}
+
+export function addItemToInventory(item) {
+
+  /* ─── 1. COINS ────────────────────────────────────────────── */
+  //  a. drop came in as a *string*  →  "Coins x25"
+  if (typeof item === 'string' && /coins/i.test(item)) {
+    const amount = parseCoinAmount(item);     // "25"
+    state.gold += amount;
+    updateUI();                               // refresh resource panel
+    return;                                   // nothing to store in slots
+  }
+
+  //  b. drop is an object that *represents* coins
+  if (item && /coins/i.test(item.name)) {
+    const amount = item.amount ?? parseCoinAmount(item.name);
+    state.gold += amount;
+    updateUI();
+    return;
+  }
+
+  /* ─── 2. REGULAR ITEMS ───────────────────────────────────── */
+  const slot = inventory.findIndex(s => s === null);
+  if (slot !== -1) {
+    inventory[slot] = item;
+    populateInventory();
+  } else {
+    addLog('Your backpack is full!');
+  }
+}
+
 
 function generateItemTooltip(item) {
   let html = `<strong>${item.name}</strong><br>`;

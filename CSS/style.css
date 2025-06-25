@@ -105,7 +105,11 @@ body {
       cursor: pointer;
     }
 .inventory-overlay{
-    display:none;
+  position: fixed;
+  inset: 0;
+  display: none;
+  background: rgba(0,0,0,.3);
+  z-index: 999;
 }
 
 #backpackImage{
@@ -435,4 +439,77 @@ body {
   text-align: center;
   margin-top: 4px;
   font-weight: bold;
+}
+
+/*Farming CSS*/
+.farm-container {
+  display: flex;
+  gap: 24px;
+  padding: 16px;
+}
+
+.farm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);   /* 3 clusters across  */
+  grid-template-rows:    repeat(3, auto);   /* 3 clusters down    */
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.farm-cluster {
+  display: grid;
+  grid-template-columns: repeat(3, 32px);
+  grid-template-rows:    repeat(3, 32px);
+  gap: 2px;
+}
+
+.farm-tile {
+  width: 32px;
+  height: 32px;
+  background-image: url('../Assets/Farming/farmingTile.png');
+  background-size: cover;
+  border: 1px solid #555;
+  box-sizing: border-box;
+}
+
+.seed-panel {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.seed-slot img {
+  width: 48px;          /* ⬅ bigger icons (was 32 px) */
+  height: 48px;
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: transform .15s;
+}
+
+.seed-slot img:hover {
+  transform: scale(1.05);
+}
+
+.close-btn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f44336;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  background: #d32f2f;
 }
