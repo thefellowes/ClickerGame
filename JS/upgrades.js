@@ -32,7 +32,7 @@ class Upgrade {
 const upgrades = {
   woodcutter: new Upgrade('Woodcutter', 'wood', 1, 1, 1, 1, 1),
   miner: new Upgrade('Miner', 'stone', 1, 1, 1, 1, 1),
-  farmer: new Upgrade('Farmer', 'food', 1, 1, 1, 1, 1)
+  farmer: new Upgrade('Farmer', 'water', 1, 1, 1, 1, 1)
 };
 
 function capitalize(str) {
@@ -102,7 +102,7 @@ function handleHire(role) {
   } else if (role === 'miner') {
     addLog(`You find a random person smashing a stone with another stone. You convince them to mine for you instead.`);
   } else if (role === 'farmer') {
-    addLog(`You find a random person and tell them to start plucking every leaf they see and bring it to you.`);
+    addLog(`You find a random person and tell them to shake some trees and collect the water droplets.`);
   } else {
     throw new Error(`Unknown role: ${role}`);
   }
